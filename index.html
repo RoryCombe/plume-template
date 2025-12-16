@@ -26,25 +26,31 @@
   <plume-page></plume-page>
 
   <script type="module">
-    import config from './plume.json';
+    async function init() {
+      // Fetch the config JSON file
+      const configResponse = await fetch('./plume.json');
+      const config = await configResponse.json();
 
-    function loadComponentWithFallback(primaryUrl, fallbackUrl) {
-      const script = document.createElement('script');
-      script.type = 'module';
-      script.src = primaryUrl;
-      script.onerror = function () {
-        script.src = fallbackUrl;
-      };
-      document.head.appendChild(script);
+      function loadComponentWithFallback(primaryUrl, fallbackUrl) {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = primaryUrl;
+        script.onerror = function () {
+          script.src = fallbackUrl;
+        };
+        document.head.appendChild(script);
+      }
+
+      loadComponentWithFallback(
+        'https://unpkg.com/plume-components@latest/plume-page.js',
+        'https://cdn.jsdelivr.net/npm/plume-components@latest/plume-page.js'
+      );
+
+      const page = document.querySelector('plume-page');
+      page.config = config;
     }
 
-    loadComponentWithFallback(
-      'https://unpkg.com/plume-components@latest/plume-page.js',
-      'https://cdn.jsdelivr.net/npm/plume-components@latest/plume-page.js'
-    );
-
-    const page = document.querySelector('plume-page');
-    page.config = config;
+    init();
   </script>
 </body>
 
