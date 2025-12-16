@@ -27,8 +27,13 @@
 
   <script type="module">
     async function init() {
+      // Check for preview query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const isPreview = urlParams.get('preview') === 'true';
+
       // Fetch the config JSON file
-      const configResponse = await fetch('./plume.json');
+      const configFile = isPreview ? './plume.preview.json' : './plume.json';
+      const configResponse = await fetch(configFile);
       const config = await configResponse.json();
 
       function loadComponentWithFallback(primaryUrl, fallbackUrl) {
