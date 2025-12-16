@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plume</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <plume-page></plume-page>
+
+  <script type="module">
+    import config from './plume.json';
+
+    function loadComponentWithFallback(primaryUrl, fallbackUrl) {
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = primaryUrl;
+      script.onerror = function () {
+        script.src = fallbackUrl;
+      };
+      document.head.appendChild(script);
+    }
+
+    loadComponentWithFallback(
+      'https://unpkg.com/plume-components@latest/plume-page.js',
+      'https://cdn.jsdelivr.net/npm/plume-components@latest/plume-page.js'
+    );
+
+    const page = document.querySelector('plume-page');
+    page.config = config;
+  </script>
+</body>
+
+</html>
