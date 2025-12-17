@@ -26,14 +26,27 @@
   <plume-page></plume-page>
 
   <script type="module">
+    const getRepoOwnerAndName = () => {
+      // https://rorycombe.github.io/plume-template/?preview=true
+      const url = new URL(window.location.href);
+      const owner = url.hostname.split('.')[0];
+      const name = url.pathname.replaceAll('/', '');
+      return { owner, name };
+    };
+
+    const getPath = (fileName) => {
+      const { owner, name } = getRepoOwnerAndName();
+      return `https://raw.githubusercontent.com/${owner}/${name}/main/${fileName}`;
+    };
+
     async function init() {
       // Check for preview query parameter
       const urlParams = new URLSearchParams(window.location.search);
       const isPreview = urlParams.get('preview') === 'true';
 
       // Fetch the config JSON file
-      const configFile = isPreview ? './plume.preview.json' : './plume.json';
-      const configResponse = await fetch(configFile);
+      const configFile = isPreview ? 'plume.preview.json' : 'plume.json';
+      const configResponse = await fetch(getPath(configFile));
       const config = await configResponse.json();
 
       function loadComponentWithFallback(primaryUrl, fallbackUrl) {
