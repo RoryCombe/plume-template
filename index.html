@@ -30,6 +30,7 @@
       // Check for preview query parameter
       const urlParams = new URLSearchParams(window.location.search);
       const isPreview = urlParams.get('preview') === 'true';
+      const isDevMode = urlParams.get('dev') === 'true';
 
       // Fetch the config JSON file
       const configFile = isPreview ? './plume.preview.json' : './plume.json';
@@ -52,6 +53,12 @@
       );
 
       const page = document.querySelector('plume-page');
+
+
+      if (isDevMode) {
+        page.setAttribute('dev', '');
+      }
+
       page.config = config;
     }
 
