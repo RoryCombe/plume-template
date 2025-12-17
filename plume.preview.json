@@ -6,7 +6,7 @@
         {
           "component": "plume-nav-2",
           "props": {
-            "brand": "Plume CMS",
+            "brand": "Plume Preview",
             "links": [
               {
                 "label": "Features",
