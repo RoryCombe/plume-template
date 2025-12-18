@@ -64,8 +64,10 @@
 
         // Listen for config updates from parent window (when in iframe)
         window.addEventListener('message', (e) => {
-          console.log('iframe message', e);
+          console.log('[Plume Template] iframe message', e);
           if (e.data?.type === 'plume-config-update' && e.data.config) {
+            console.log('[Plume Template] plume page config update', e.data.config);
+            debugger
             page.config = e.data.config;
           }
         });
