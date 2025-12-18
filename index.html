@@ -52,6 +52,9 @@
         'https://cdn.jsdelivr.net/npm/plume-components@latest/plume-page.js'
       );
 
+      // Wait for the custom element to be defined
+      await customElements.whenDefined('plume-page');
+
       const page = document.querySelector('plume-page');
 
 
