@@ -57,6 +57,10 @@
 
       if (isDevMode) {
         page.setAttribute('dev', '');
+
+        window.addEventListener('plume-block-clicked', (e) => {
+          window.parent.postMessage({ type: 'plume-block-clicked', ...e.detail }, '*');
+        });
       }
 
       page.config = config;
