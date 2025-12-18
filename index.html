@@ -64,6 +64,13 @@
       }
 
       page.config = config;
+
+      // Listen for config updates from parent window (when in iframe)
+      window.addEventListener('message', (e) => {
+        if (e.data?.type === 'plume-config-update' && e.data.config) {
+          page.config = e.data.config;
+        }
+      });
     }
 
     init();
